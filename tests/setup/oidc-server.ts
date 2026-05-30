@@ -9,6 +9,7 @@ const { privateKey, publicKey } = generateKeyPairSync("rsa", {
 })
 
 const port = parseInt(process.env.OIDC_PORT ?? "4567")
+const aud = process.env.JWT_AUD ?? "audience"
 
 // Convert DER public key to JWK
 const publicKeyObj = createPublicKey({ key: publicKey, format: "der", type: "spki" })
@@ -20,6 +21,7 @@ const makeJwt = (claims: Record<string, unknown>): string => {
         iss: `http://localhost:${port}`,
         iat: Math.floor(Date.now() / 1000),
         exp: Math.floor(Date.now() / 1000) + 3600,
+		...(aud ? { aud } : {}),
         ...claims,
     })).toString("base64url")
 
