@@ -25,8 +25,7 @@ describe("post /api/v3/user/certificate", () => {
     beforeAll(async () => {
         const claims = {
             sub: "user123",
-            email: "user@example.com",
-			aud: env.JWT_AUD
+            email: "user@example.com"
         }
         accessToken = await getAccessToken(claims)
         identityToken = await getIdentityToken(claims)
@@ -70,8 +69,7 @@ describe("post /api/v3/user/certificate", () => {
 
         const differentIdentityToken = await getIdentityToken({
             sub: "different-user",
-            email: "other@example.com",
-			aud: env.JWT_AUD
+            email: "other@example.com"
         })
 
         const headers = new Headers()
