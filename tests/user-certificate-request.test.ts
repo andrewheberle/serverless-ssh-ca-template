@@ -71,6 +71,7 @@ describe("post /api/v3/user/certificate", () => {
         const differentIdentityToken = await getIdentityToken({
             sub: "different-user",
             email: "other@example.com",
+			aud: env.JWT_AUD
         })
 
         const headers = new Headers()
