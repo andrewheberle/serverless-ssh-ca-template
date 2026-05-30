@@ -26,6 +26,7 @@ describe("post /api/v3/user/certificate", () => {
         const claims = {
             sub: "user123",
             email: "user@example.com",
+			aud: env.JWT_AUD
         }
         accessToken = await getAccessToken(claims)
         identityToken = await getIdentityToken(claims)
