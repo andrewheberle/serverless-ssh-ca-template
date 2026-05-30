@@ -1,5 +1,5 @@
 import { createServer } from "node:http"
-import { generateKeyPairSync, createSign } from "node:crypto"
+import { generateKeyPairSync, createSign, createPublicKey } from "node:crypto"
 
 // Generate RS256 keypair at startup
 const { privateKey, publicKey } = generateKeyPairSync("rsa", {
@@ -11,7 +11,7 @@ const { privateKey, publicKey } = generateKeyPairSync("rsa", {
 const port = parseInt(process.env.OIDC_PORT ?? "4567")
 
 // Convert DER public key to JWK
-const publicKeyObj = crypto.createPublicKey({ key: publicKey, format: "der", type: "spki" })
+const publicKeyObj = createPublicKey({ key: publicKey, format: "der", type: "spki" })
 const jwk = publicKeyObj.export({ format: "jwk" })
 
 const makeJwt = (claims: Record<string, unknown>): string => {
