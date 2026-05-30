@@ -10,7 +10,10 @@ export default defineConfig(async () => {
 
 	return {
 		test: {
-            globalSetup: ["./tests/setup/oidc-server.ts"],
+            globalSetup: [
+                "./tests/setup/oidc-server.ts",
+                "./tests/setup/proof.ts",
+            ],
 			coverage: {
 				provider: "istanbul",
 				include: ["src/**/*.ts"]
