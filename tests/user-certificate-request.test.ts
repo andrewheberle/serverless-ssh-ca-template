@@ -6,10 +6,10 @@ import {
     // @ts-ignore: this import errors but is fine in tests
 } from "cloudflare:test"
 import { describe, it, expect, beforeAll } from "vitest"
+import { inject } from "vitest"
 import worker from "../src"
 import { privateKeyString, userPrivateKey } from "./keys/ecdsa"
 import { getAccessToken, getIdentityToken } from "./helpers/token"
-import { generateProof } from "./helpers/proof"
 
 const IncomingRequest = Request<unknown, IncomingRequestCfProperties>
 
@@ -17,6 +17,8 @@ const admin = adminSecretsStore(env.PRIVATE_KEY)
 await admin.create(privateKeyString)
 
 describe("post /api/v3/user/certificate", () => {
+    const proof = inject("testProof")
+
     let accessToken: string
     let identityToken: string
 
@@ -31,16 +33,13 @@ describe("post /api/v3/user/certificate", () => {
 
     it("valid request issues a certificate", async () => {
         const key = userPrivateKey()
-        const publicKey = key.toPublic()
-
-        const proof = generateProof(key)
 
         const headers = new Headers()
         headers.set("Authorization", accessToken)
         headers.set("Content-Type", "application/json")
 
         const body = JSON.stringify({
-            public_key: Buffer.from(publicKey.toString("ssh")).toString("base64"),
+            public_key: Buffer.from(key.toPublic().toString("ssh")).toString("base64"),
             proof: proof,
             identity: identityToken,
             extensions: [],
@@ -67,7 +66,6 @@ describe("post /api/v3/user/certificate", () => {
 
     it("mismatched token subjects returns 403", async () => {
         const key = userPrivateKey()
-        const proof = generateProof(key)
 
         const differentIdentityToken = await getIdentityToken({
             sub: "different-user",
