@@ -19,13 +19,13 @@
 				"description": "The supported JWT algorithms as a comma seperated list"
 			},
 			"JWT_SSH_CERTIFICATE_PRINCIPALS_CLAIM": {
-				"description": "The OIDC 'group' claim that contains additional SSH principals to add to the certificate. If ommitted only the default claims (via 'SSH_CERTIFICATE_PRINCIPALS' and 'SSH_CERTIFICATE_INCLUDE_SELF') are added"
+				"description": "The OIDC 'group' claim that contains additional SSH principals to add to the certificate. If blank only the default claims (via 'SSH_CERTIFICATE_PRINCIPALS' and 'SSH_CERTIFICATE_INCLUDE_SELF') are added (optional). **Note:** You must enter a value here at this time. See the [README](https://github.com/andrewheberle/serverless-ssh-ca-template/blob/main/README.md#optional-variables) for more details."
 			},
 			"SSH_CERTIFICATE_LIFETIME": {
 				"description": "The lifetime of the issued SSH certificates in human readable form (ie '24 hours'), although the client may request a shorter duration"
 			},
 			"SSH_CERTIFICATE_PRINCIPALS": {
-				"description": "A comma seperated list of additional principals to add to all issued user certificates"
+				"description": "A comma seperated list of additional principals to add to all issued user certificates (optional). **Note:** You must enter a value here at this time. See the [README](https://github.com/andrewheberle/serverless-ssh-ca-template/blob/main/README.md#optional-variables) for more details."
 			},
 			"SSH_CERTIFICATE_INCLUDE_SELF": {
 				"description": "Whether to add the users own name as a valid principal (based on the part before the @ symbol in the JWT email claim)"
@@ -37,16 +37,16 @@
 				"description": "The lifetime of issued Host SSH certificates in human readable form (ie '45 days'), although the client may request a shorter duration"
 			},
 			"SSH_HOST_CERTIFICATE_ALLOWED_EMAILS": {
-				"description": "A comma seperated list of users who are permitted to request SSH host certificates based on the email claim from the OIDC IdP"
+				"description": "A comma seperated list of users who are permitted to request SSH host certificates based on the email claim from the OIDC IdP (optional). **Note:** You must enter a value here at this time. See the [README](https://github.com/andrewheberle/serverless-ssh-ca-template/blob/main/README.md#optional-variables) for more details."
 			},
 			"SSH_HOST_CERTIFICATE_ALLOWED_ROLES": {
-				"description": "A comma seperated list of roles who are permitted to request SSH host certificates based on the role claim from the OIDC IdP"
+				"description": "A comma seperated list of roles who are permitted to request SSH host certificates based on the role claim from the OIDC IdP (optional). **Note:** You must enter a value here at this time. See the [README](https://github.com/andrewheberle/serverless-ssh-ca-template/blob/main/README.md#optional-variables) for more details."
 			},
 			"SSH_HOST_CERTIFICATE_ALLOWED_ROLES_CLAIM": {
-				"description": "The claim that contains the roles who are permitted to request SSH host certificates"
+				"description": "The claim that contains the roles who are permitted to request SSH host certificates (optional). **Note:** You must enter a value here at this time. See the [README](https://github.com/andrewheberle/serverless-ssh-ca-template/blob/main/README.md#optional-variables) for more details."
 			},
 			"PRIVATE_KEY": {
-				"description": "The ECDSA private key to use in OpenSSH format"
+				"description": "The ECDSA or ED25519 private key to use in OpenSSH format (RSA keys are not supported). **Note:** As this is a multi-line string, when setting this variable here will create the secret however you will need to use the wrangler CLI to update the value of this secret with the actual private key content. See the [README](https://github.com/andrewheberle/serverless-ssh-ca-template/blob/main/README.md#updating-the-secret-with-wrangler) for more details."
 			},
 			"CERTIFICATE_REQUEST_TIME_SKEW_MAX": {
 				"description": "The maximum time offset/skew allowed for certificate requests from a client in human readable form (ie '5 minutes')"
