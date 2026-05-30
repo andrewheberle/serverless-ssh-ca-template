@@ -3,12 +3,14 @@ import { cloudflareTest, readD1Migrations} from "@cloudflare/vitest-pool-workers
 import { defineConfig } from "vitest/config"
 
 export default defineConfig(async () => {
-
-	const migrationsPath = path.join(__dirname, "migrations");
-	const migrations = await readD1Migrations(migrationsPath);
+	const migrationsPath = path.join(__dirname, "migrations")
+	const migrations = await readD1Migrations(migrationsPath)
+    const oidcPort = process.env.OIDC_PORT ?? "4567"
+    const oidcUrl = `http://localhost:${oidcPort}`
 
 	return {
 		test: {
+            globalSetup: ["./tests/setup/oidc-server.ts"],
 			coverage: {
 				provider: "istanbul",
 				include: ["src/**/*.ts"]
@@ -26,6 +28,9 @@ export default defineConfig(async () => {
 						"ISSUER_DN": "CN=SSH CA,O=Internet Widgets Pty Ltd,C=US",
 						"SSH_CERTIFICATE_PRINCIPALS": "",
 						"SSH_CERTIFICATE_INCLUDE_SELF": "false",
+                        "JWT_JWKS_URL": `${oidcUrl}/jwks`,
+                        "JWT_ISSUER": oidcUrl,
+                        "JWT_ALGORITHMS": "RS256",
 						"TEST_MIGRATIONS": migrations
 					},
 				},
