@@ -1,5 +1,5 @@
 {
-	"name": "serverless-ssh-ca",
+	"name": "serverless-ssh-ca-template",
 	"private": true,
 	"cloudflare": {
 		"bindings": {
@@ -63,25 +63,15 @@
 		}
 	},
 	"scripts": {
-		"deploy": "npm-run-all migrations:apply:deploy wrangler:deploy",
 		"cf-typegen": "wrangler types",
-		"coverage": "vitest run --coverage",
-		"migrations:apply:dev": "wrangler d1 migrations apply DB --local",
-		"migrations:apply:deploy": "wrangler d1 migrations apply DB --remote",
-		"test": "vitest run",
-		"wrangler:dev": "wrangler dev",
-		"wrangler:deploy": "wrangler deploy"
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev"
 	},
 	"dependencies": {
 		"@andrewheberle/serverless-ssh-ca": "^0.17.4"
 	},
 	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "^0.16.0",
-		"@types/sshpk": "^1.17.4",
-		"@vitest/coverage-istanbul": "^4.1.1",
-		"npm-run-all2": "^9.0.0",
 		"typescript": "^6.0.0",
-		"vitest": "^4.1.1",
 		"wrangler": "^4.73.0"
 	}
 }
