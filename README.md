@@ -35,10 +35,8 @@ various variables to customise the CA as follows:
     "SSH_CERTIFICATE_EXTENSIONS": "permit-X11-forwarding,permit-agent-forwarding,permit-port-forwarding,permit-pty,permit-user-rc",
     // A comma seperated list of users who are permitted to request SSH host certificates based on the email claim from the OIDC IdP
     "SSH_HOST_CERTIFICATE_ALLOWED_EMAILS": "",
-	// A comma seperated list of roles that are permitted to request SSH host certificates based on the claim specified in SSH_HOST_CERTIFICATE_ALLOWED_ROLES_CLAIM
+	// A comma seperated list of roles that are permitted to request SSH host certificates based on the claim specified in SSH_CERTIFICATE_PRINCIPALS
 	"SSH_HOST_CERTIFICATE_ALLOWED_ROLES": "",
-	// The claim that is expected to contain roles allowed to issue host certificates
-	"SSH_HOST_CERTIFICATE_ALLOWED_ROLES_CLAIM": "groups",
     // The lifetime of issued Host SSH certificates in human readable form (ie "45 days"), although the client may request a shorter duration
     "SSH_HOST_CERTIFICATE_LIFETIME": "30 days",
     // The maximum time skew allowed for certificate requests
@@ -52,8 +50,7 @@ various variables to customise the CA as follows:
 
 Some of the values above, such as `JWT_SSH_CERTIFICATE_PRINCIPALS_CLAIM`,
 `SSH_CERTIFICATE_PRINCIPALS`, `JWT_SSH_CERTIFICATE_PRINCIPALS_CLAIM`,
-`SSH_HOST_CERTIFICATE_ALLOWED_EMAILS`, `SSH_HOST_CERTIFICATE_ALLOWED_ROLES` and
-`SSH_HOST_CERTIFICATE_ALLOWED_ROLES_CLAIM` may be set to an empty string in
+`SSH_HOST_CERTIFICATE_ALLOWED_EMAILS` and `SSH_HOST_CERTIFICATE_ALLOWED_ROLES` may be set to an empty string or left undefined in
 order to disable or skip that functionality, however the when using the
 "Deploy to Cloudflare" button, a value is required initially.
 
