@@ -68,7 +68,7 @@
 		"@andrewheberle/serverless-ssh-ca": "^0.17.4"
 	},
 	"devDependencies": {
-		"typescript": "^6.0.0",
+		"typescript": "^7.0.0",
 		"wrangler": "^4.73.0"
 	}
 }
