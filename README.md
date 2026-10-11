@@ -22,6 +22,8 @@ various variables to customise the CA as follows:
     "JWT_ISSUER": "https://example.com/",
     // The supported JWT algorithms as a comma seperated list
     "JWT_ALGORITHMS": "RS256",
+	// The aud of the JWT access token. May be a string or an array of strings.
+	"JWT_AUD": "audience",
     // An OIDC claim included in the users identity token that will be used to
     // populate the list of principals on the issued certificate
     "JWT_SSH_CERTIFICATE_PRINCIPALS_CLAIM": "groups",
@@ -42,7 +44,9 @@ various variables to customise the CA as follows:
     // The maximum time skew allowed for certificate requests
     "CERTIFICATE_REQUEST_TIME_SKEW_MAX": "90 seconds",
 	// Set this to "debug" to enable more logging
-	"LOG_LEVEL": "info"
+	"LOG_LEVEL": "info",
+	// The retention time to keep issued certificates in the D1 database
+	"DB_CERTIFICATE_RETENTION": "1 year"
 },
 ```
 
@@ -50,9 +54,10 @@ various variables to customise the CA as follows:
 
 Some of the values above, such as `JWT_SSH_CERTIFICATE_PRINCIPALS_CLAIM`,
 `SSH_CERTIFICATE_PRINCIPALS`, `JWT_SSH_CERTIFICATE_PRINCIPALS_CLAIM`,
-`SSH_HOST_CERTIFICATE_ALLOWED_EMAILS` and `SSH_HOST_CERTIFICATE_ALLOWED_ROLES` may be set to an empty string or left undefined in
-order to disable or skip that functionality, however the when using the
-"Deploy to Cloudflare" button, a value is required initially.
+`SSH_HOST_CERTIFICATE_ALLOWED_EMAILS` and `SSH_HOST_CERTIFICATE_ALLOWED_ROLES`
+may be set to an empty string or left undefined in order to disable or skip
+that functionality, however the when using the "Deploy to Cloudflare" button,
+a value is required initially.
 
 These can be updated in your `wrangler.jsonc` file after the initial deployment.
 
@@ -118,3 +123,9 @@ After the initial deployment it is highly recommended to set the build variable
 If you want to run your SSH CA on a custom domain (recommended), you should
 uncomment the `routes` section in `wrangler.jsonc`, set your custom domain then
 commit your changes to trigger a new deployment of the Worker.
+
+### Client
+
+The SSH CA Client is located here:
+
+[https://github.com/andrewheberle/ssh-ca-client](https://github.com/andrewheberle/ssh-ca-client)

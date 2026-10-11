@@ -65,10 +65,10 @@
 		"dev": "wrangler dev"
 	},
 	"dependencies": {
-		"@andrewheberle/serverless-ssh-ca": "^0.18.0"
+		"@andrewheberle/serverless-ssh-ca": "^0.22.0"
 	},
 	"devDependencies": {
 		"typescript": "^7.0.0",
-		"wrangler": "^4.73.0"
+		"wrangler": "^4.95.0"
 	}
 }
